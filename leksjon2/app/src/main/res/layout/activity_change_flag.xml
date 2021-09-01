@@ -6,22 +6,45 @@
     android:layout_height="match_parent"
     tools:context="inft2501.leksjon2.ChangeFlagActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ChangeFlagActivity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="113dp"
-        android:label="@string/title_activity"
-        android:layout_height="67dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/uk"
-        tools:layout_editor_absoluteX="149dp"
-        tools:layout_editor_absoluteY="275dp" />
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="204dp" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:text="ChangeFlagActivity"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="479dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="535dp"
+        android:layout_marginBottom="148dp"
+        android:onClick="onCLickEndActivity"
+        android:text="Finish Activity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="126dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="583dp"
+        android:onClick="onClickChangeFlag"
+        android:text="Change Flag"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="135dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

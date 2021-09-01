@@ -3,28 +3,53 @@
     package="inft2501.leksjon2">
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/title_activity"
-        android:allowBackup="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Leksjon2">
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name="inft2501.leksjon2.MainActivity"
+            android:exported="true"
+            android:label="@string/title_activity">
+
+
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
+
+            <intent-filter>
+
+                <action android:name="inft2501.MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+
         </activity>
+
+
         <activity
             android:name="inft2501.leksjon2.ChangeFlagActivity"
-            android:label="@string/title_activity"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/title_activity">
+
+
             <intent-filter>
+
                 <action android:name="inft2501.ChangeFlagActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
             </intent-filter>
+
         </activity>
     </application>
 
