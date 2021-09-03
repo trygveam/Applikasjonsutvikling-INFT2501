@@ -5,5 +5,5 @@
     <string name="svar">Svar:</string>
     <string name="øvre_grense">Øvre grense:</string>
     <string name="riktig">Riktig!</string>
-    <string name="feil">Feil. Riktig svar er</string>
+    <string name="feil">Feil. Riktig svar er: </string>
 </resources>
