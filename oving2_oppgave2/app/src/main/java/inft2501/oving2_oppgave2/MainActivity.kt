@@ -27,8 +27,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openActivityForResult() {
+        val plainTextUpperLimit: EditText = findViewById(R.id.plainText_upperLimit)
+        var upperLimit: Int = Integer.parseInt(plainTextUpperLimit.getText().toString())
+
         val intent = Intent("inft2501.oving2.oppgave2.CreateNumbersActivity")
-        intent.putExtra("number",100)
+        if(upperLimit != null){
+            intent.putExtra("number",upperLimit)
+        }else{
+            intent.putExtra("number",100)
+        }
         startForResult.launch(intent)
     }
 
@@ -46,27 +53,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-
-
-
     fun onClickAdditionButton(v: View?){
         val textViewOne: TextView = findViewById(R.id.textView_number_one)
         var numberOne: Int = Integer.parseInt(textViewOne.getText().toString())
-
         val textViewTwo: TextView = findViewById(R.id.textView_number_two)
         var numberTwo: Int = Integer.parseInt(textViewTwo.getText().toString())
-
         val plainTextAnswer: EditText = findViewById(R.id.plainText_answer)
         var answer: Int = Integer.parseInt(plainTextAnswer.getText().toString())
-
-        val plainTextUpperLimit: EditText = findViewById(R.id.plainText_upperLimit)
-        var upperLimit: Int = Integer.parseInt(plainTextUpperLimit.getText().toString())
-
         val solution: Int = numberOne+numberTwo
-
-        createToast(answer,solution, upperLimit)
+        createToast(answer,solution)
     }
 
     fun onClickMultiButton(v: View?){
@@ -79,15 +74,12 @@ class MainActivity : AppCompatActivity() {
         val plainTextAnswer: EditText = findViewById(R.id.plainText_answer)
         var answer: Int = Integer.parseInt(plainTextAnswer.getText().toString())
 
-        val plainTextUpperLimit: EditText = findViewById(R.id.plainText_upperLimit)
-        var upperLimit: Int = Integer.parseInt(plainTextUpperLimit.getText().toString())
-
         val solution: Int = numberOne*numberTwo
 
-        createToast(answer,solution,upperLimit)
+        createToast(answer,solution)
     }
 
-    private fun createToast(answer:Int,solution:Int,upperLimit:Int){
+    private fun createToast(answer:Int,solution:Int){
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("AlertDialog")
         if (answer == solution)  builder.setMessage(getString(R.string.riktig)) else builder.setMessage(getString(R.string.feil) + solution)
