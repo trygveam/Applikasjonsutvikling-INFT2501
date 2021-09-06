@@ -12,16 +12,13 @@ class CreateNumberActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.e("Made Activity","")
         requestNumber = intent.getIntExtra("number",requestNumber)
-        Log.e("Number is",requestNumber.toString())
         makeRandomNumber(requestNumber)
     }
 
-    fun makeRandomNumber(upperLimit : Int){
+    private fun makeRandomNumber(upperLimit : Int){
         val value = (0..upperLimit).random()
         setResult(RESULT_OK, Intent().putExtra("number",value))
-        Log.e("Sat Result", value.toString())
         finish()
     }
 

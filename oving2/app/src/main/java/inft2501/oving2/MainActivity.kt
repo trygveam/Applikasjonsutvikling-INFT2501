@@ -1,13 +1,10 @@
 package inft2501.oving2
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         startCreateNumberActivity()
     }
 
-    fun startCreateNumberActivity() {
+    private fun startCreateNumberActivity() {
         val intent = Intent("inft2501.CreateNumberActivity")
         intent.putExtra("number",100)
         startActivityForResult(intent,value)
@@ -37,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
         if (data != null) {
             value = data.getIntExtra("number", value)
-            //createToast(value)
+            createToast(value)
             displayNumberToTextview(value)
         }
      }
