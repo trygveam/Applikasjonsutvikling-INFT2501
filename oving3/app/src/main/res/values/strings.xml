@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">oving3</string>
+
+    <string name="option0">Default</string>
+    <string name="option1">Add Person</string>
+    <string name="option2">Exit Application</string>
+
+    <string-array name="spinnerOptions">
+        <item>@string/option0</item>
+        <item>@string/option1</item>
+        <item>@string/option2</item>
+    </string-array>
+
 </resources>
