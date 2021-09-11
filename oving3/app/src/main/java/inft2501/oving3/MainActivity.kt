@@ -9,23 +9,33 @@ import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private var friends: MutableCollection<Person> = mutableListOf<Person>()
     private var spinnerOptions: Array<String> = arrayOf()
+    private lateinit var listView: ListView
+    private lateinit var adapter: Adapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        friends.add(Person("Rikke halo",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
+        friends.add(Person("johnny",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
+        friends.add(Person("bravoo",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
 
         spinnerOptions = resources.getStringArray(R.array.spinnerOptions)
         initSpinner()
         initList()
+
+
+
+
     }
 
     private fun initSpinner() {
@@ -50,11 +60,21 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun initList() {
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_activated_1, spinnerOptions)
-        val listView = findViewById<ListView>(R.id.listView)
+        listView = findViewById<ListView>(R.id.listView)
+        val listItems = arrayOfNulls<String>(friends.size)
+        for ((i, item) in friends.withIndex()) {
+            listItems[i] = item.name
+        }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_activated_1, listItems)
         listView.adapter = adapter
-        listView.choiceMode = ListView.CHOICE_MODE_SINGLE
+
+        val btn = findViewById<Button>(R.id.button);
+
+        btn.setOnClickListener {
+            adapter.notifyDataSetChanged()
+        }
     }
+
 
     fun openActivityForResult(){
         val intent = Intent("inft2501.oving3.AddPersonActivity")
