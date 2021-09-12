@@ -12,13 +12,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     private var friends: MutableCollection<Person> = mutableListOf<Person>()
     private var spinnerOptions: Array<String> = arrayOf()
     private lateinit var listView: ListView
-    private lateinit var adapter: Adapter
+    private lateinit var adapterSpinner: Adapter
+    private lateinit var adapterList: PersonAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,15 +35,12 @@ class MainActivity : AppCompatActivity() {
         initSpinner()
         initList()
 
-
-
-
     }
 
     private fun initSpinner() {
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerOptions)
+        adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerOptions)
         val spinner = findViewById<Spinner>(R.id.spinner)
-        spinner.adapter = adapter
+        spinner.adapter = adapterSpinner as ArrayAdapter<String>
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(
@@ -65,14 +64,9 @@ class MainActivity : AppCompatActivity() {
         for ((i, item) in friends.withIndex()) {
             listItems[i] = item.name
         }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_activated_1, listItems)
-        listView.adapter = adapter
+        adapterList = PersonAdapter(this, friends as ArrayList<Person>)
+        listView.adapter = adapterList
 
-        val btn = findViewById<Button>(R.id.button);
-
-        btn.setOnClickListener {
-            adapter.notifyDataSetChanged()
-        }
     }
 
 
@@ -88,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             val p = intent?.getSerializableExtra("person") as Person
             // val p = intent.extras?.get("person") as Person
             friends.add(p)
+            adapterList.notifyDataSetChanged()
         }
     }
 
