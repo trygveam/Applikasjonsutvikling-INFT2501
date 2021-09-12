@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var friends: MutableCollection<Person> = mutableListOf<Person>()
+    private var friends: ArrayList<Person> = ArrayList<Person>()
     private var spinnerOptions: Array<String> = arrayOf()
     private lateinit var listView: ListView
     private lateinit var adapterSpinner: Adapter
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         friends.add(Person("Rikke halo",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
         friends.add(Person("johnny",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
         friends.add(Person("bravoo",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
-
         spinnerOptions = resources.getStringArray(R.array.spinnerOptions)
         initSpinner()
         initList()
@@ -64,18 +63,21 @@ class MainActivity : AppCompatActivity() {
         for ((i, item) in friends.withIndex()) {
             listItems[i] = item.name
         }
-        adapterList = PersonAdapter(this, friends as ArrayList<Person>)
+        adapterList = PersonAdapter(this, friends)
         listView.adapter = adapterList
-
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val element = adapterList.getItem(position)
+            openActivityForResultEdit(position)
+        }
     }
 
 
-    fun openActivityForResult(){
+    private fun openActivityForResult(){
         val intent = Intent("inft2501.oving3.AddPersonActivity")
         startForResult.launch(intent)
     }
 
-    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
@@ -86,4 +88,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun openActivityForResultEdit(position:Int){
+        val intent = Intent("inft2501.oving3.EditPersonActivity")
+        intent.putExtra("person", friends.get(position))
+        startForResultEdit.launch(intent)
+    }
+    private val startForResultEdit = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            //val op = intent?.extras?.get("origPerson") as Person
+            val np = intent?.getSerializableExtra("newPerson") as Person
+
+                //friends.remove(op)
+                friends.add(Person(np.name.toString(),np.birthday))
+                adapterList.notifyDataSetChanged()
+
+        }
+    }
+
 }
+

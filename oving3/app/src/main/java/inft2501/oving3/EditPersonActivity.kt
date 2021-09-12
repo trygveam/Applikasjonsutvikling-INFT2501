@@ -7,28 +7,40 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.lang.String.format
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class AddPersonActivity : AppCompatActivity() {
+class EditPersonActivity : AppCompatActivity() {
+
+    private lateinit var person :Person
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.add_person)
+        setContentView(R.layout.edit_person)
+        person = intent?.getSerializableExtra("person") as Person
+        displayInformation()
+    }
+
+    private fun displayInformation(){
+        val name: TextView = findViewById(R.id.editTextName)
+        val birthday : TextView = findViewById(R.id.editTextBirthday)
+        Log.e("before",person.name.toString() + person.birthday.toString())
+        name.setText(person.name)
+        birthday.setText(person.birthday.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))
     }
 
     @SuppressLint("NewApi")
-    fun onClickAddPerson(v: View?){
+    fun onClickEditPerson(v: View?){
         val name: TextView = findViewById(R.id.editTextName)
+
         val birthday : TextView = findViewById(R.id.editTextBirthday)
 
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         val date = LocalDate.parse(birthday.getText().toString(), formatter)
 
-        val p = Person(name.getText().toString(), date)
-        Log.v("",p.name)
-        Log.v("",p.birthday.toString())
-        setResult(RESULT_OK,Intent().putExtra("person",p))
+        setResult(RESULT_OK,Intent().putExtra("origPerson",person).putExtra("newPerson",Person(name.toString(),date)))
         finish()
     }
 

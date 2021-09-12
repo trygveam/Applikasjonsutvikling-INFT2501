@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/tryam/Documents/repositories github/Applikasjonsutvikling-INFT2501/oving3/app/src/main/res/layout/activity_main.xml" value="0.4133811230585424" />
-        <entry key="..\:/Users/tryam/Documents/repositories github/Applikasjonsutvikling-INFT2501/oving3/app/src/main/res/layout/add_person.xml" value="0.34010416666666665" />
+        <entry key="..\:/Users/tryam/Documents/repositories github/Applikasjonsutvikling-INFT2501/oving3/app/src/main/res/layout/add_person.xml" value="0.67" />
+        <entry key="..\:/Users/tryam/Documents/repositories github/Applikasjonsutvikling-INFT2501/oving3/app/src/main/res/layout/edit_person.xml" value="0.5661458333333333" />
         <entry key="..\:/Users/tryam/Documents/repositories github/Applikasjonsutvikling-INFT2501/oving3/app/src/main/res/layout/list_item_recipe.xml" value="0.5541666666666667" />
       </map>
     </option>
