@@ -16,11 +16,12 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var friends: ArrayList<Person> = ArrayList<Person>()
+    var friends: ArrayList<Person> = ArrayList<Person>()
     private var spinnerOptions: Array<String> = arrayOf()
     private lateinit var listView: ListView
     private lateinit var adapterSpinner: Adapter
     private lateinit var adapterList: PersonAdapter
+    private  var pos: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,19 +92,28 @@ class MainActivity : AppCompatActivity() {
     private fun openActivityForResultEdit(position:Int){
         val intent = Intent("inft2501.oving3.EditPersonActivity")
         intent.putExtra("person", friends.get(position))
+        intent.putExtra("pos",position)
         startForResultEdit.launch(intent)
     }
+
     private val startForResultEdit = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
             //val op = intent?.extras?.get("origPerson") as Person
-            val np = intent?.getSerializableExtra("newPerson") as Person
-
+            val np = intent?.getSerializableExtra("person") as Person
+            val pos = intent.getIntExtra("pos",pos)
+            friends.get(pos).name = np.name
+            friends.get(pos).birthday = np.birthday
+            //friends.remove(op)
+            //friends.add(np)
                 //friends.remove(op)
-                friends.add(Person(np.name.toString(),np.birthday))
-                adapterList.notifyDataSetChanged()
-
+                //friends.add(Person(np.name.toString(),np.birthday))
+            for(item in friends){
+                Log.e("tag",item.toString())
+            }
+            initList()
+            adapterList.notifyDataSetChanged()
         }
     }
 

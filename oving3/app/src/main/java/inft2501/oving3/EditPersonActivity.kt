@@ -14,12 +14,14 @@ import java.time.format.DateTimeFormatter
 class EditPersonActivity : AppCompatActivity() {
 
     private lateinit var person :Person
+    private var pos:Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_person)
         person = intent?.getSerializableExtra("person") as Person
+        pos = intent?.getIntExtra("pos",pos)!!
         displayInformation()
     }
 
@@ -39,8 +41,12 @@ class EditPersonActivity : AppCompatActivity() {
 
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         val date = LocalDate.parse(birthday.getText().toString(), formatter)
-
-        setResult(RESULT_OK,Intent().putExtra("origPerson",person).putExtra("newPerson",Person(name.toString(),date)))
+        //var origPerson: Person =  person;
+        person.name = name.text.toString()
+        person.birthday = date;
+        Log.e("after",person.name.toString() + person.birthday.toString())
+        //setResult(RESULT_OK, Intent().putExtra("origPerson",person).putExtra("newPerson",person))
+        setResult(RESULT_OK,Intent().putExtra("person",person).putExtra("pos",pos))
         finish()
     }
 
