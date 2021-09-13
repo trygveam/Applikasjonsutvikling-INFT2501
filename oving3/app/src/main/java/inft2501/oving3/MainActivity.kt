@@ -11,12 +11,11 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    var friends: ArrayList<Person> = ArrayList<Person>()
+    private var friends: ArrayList<Person> = ArrayList<Person>()
     private var spinnerOptions: Array<String> = arrayOf()
     private lateinit var listView: ListView
     private lateinit var adapterSpinner: Adapter
@@ -28,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        friends.add(Person("Rikke halo",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
+        friends.add(Person("Jon",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
         friends.add(Person("johnny",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
-        friends.add(Person("bravoo",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
+        friends.add(Person("Johansen",LocalDate.parse("01-04-1999", DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
         spinnerOptions = resources.getStringArray(R.array.spinnerOptions)
         initSpinner()
         initList()
@@ -49,8 +48,14 @@ class MainActivity : AppCompatActivity() {
                 posisjon: Int,
                 id: Long
             ) {
-                if(posisjon !=0){
-                    if (posisjon == 1) openActivityForResult() else Log.e("done","done")
+                if(posisjon == 0){
+                    Log.e("tag","default")
+                }
+                else if(posisjon == 1){
+                    openActivityForResult()
+                }
+                else{
+                    System.exit(-1)
                 }
             }
 
@@ -87,6 +92,11 @@ class MainActivity : AppCompatActivity() {
             friends.add(p)
             adapterList.notifyDataSetChanged()
         }
+        else if (result.resultCode == Activity.RESULT_CANCELED){
+            adapterList.notifyDataSetChanged()
+            initSpinner()
+        }
+
     }
 
     private fun openActivityForResultEdit(position:Int){
@@ -105,15 +115,11 @@ class MainActivity : AppCompatActivity() {
             val pos = intent.getIntExtra("pos",pos)
             friends.get(pos).name = np.name
             friends.get(pos).birthday = np.birthday
-            //friends.remove(op)
-            //friends.add(np)
-                //friends.remove(op)
-                //friends.add(Person(np.name.toString(),np.birthday))
-            for(item in friends){
-                Log.e("tag",item.toString())
-            }
-            initList()
             adapterList.notifyDataSetChanged()
+        }
+        else if (result.resultCode == Activity.RESULT_CANCELED){
+            adapterList.notifyDataSetChanged()
+            initSpinner()
         }
     }
 

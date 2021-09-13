@@ -37,7 +37,7 @@ class PersonAdapter(private val context: Context,
         val person = getItem(position) as Person
         titleTextView.text = person.name
         subtitleTextView.text = person.birthday.toString()
-        detailTextView.text = "recipe.label"
+        detailTextView.text = "default"
         return rowView
     }
 

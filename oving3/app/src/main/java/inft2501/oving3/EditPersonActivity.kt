@@ -51,6 +51,7 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     fun onClickBack(v:View?){
+        setResult(RESULT_CANCELED)
         finish()
     }
 }
