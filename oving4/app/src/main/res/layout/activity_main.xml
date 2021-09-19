@@ -4,5 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="16dp">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment1"
+            android:name="inft2501.oving4.Fragment1"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment2"
+            android:name="inft2501.oving4.Fragment2"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

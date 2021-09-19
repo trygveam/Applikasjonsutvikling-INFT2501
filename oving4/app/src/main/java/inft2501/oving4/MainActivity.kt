@@ -1,19 +1,27 @@
 package inft2501.oving4
 
-import android.content.res.TypedArray
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity(), Fragment1.OnFragmentInteractionListener
+{
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun onFragmentInteraction(pos: Int?) {
+        val fragment2 =
+            supportFragmentManager.findFragmentById(R.id.fragment2) as
+                    Fragment2
+        fragment2.setText(pos)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -30,5 +38,4 @@ class MainActivity : FragmentActivity() {
         }
         return true
     }
-
 }

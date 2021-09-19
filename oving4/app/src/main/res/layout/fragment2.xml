@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/content"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="16dp">
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment1"
-            android:name="inft2501.oving4.Fragment1"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment2"
-            android:name="inft2501.oving4.Fragment2"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="237dp"
+            android:layout_height="94dp"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="219dp"
+            android:layout_height="228dp"
+            app:srcCompat="@drawable/animal1" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
