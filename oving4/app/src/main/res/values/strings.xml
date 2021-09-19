@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">oving4</string>
+    <string name="animal1n">Beaver</string>
+    <string name="animal2n">Panda</string>
+    <string name="animal3n">Polar Bear</string>
+    <string name="animal1d">A long and formal description of a Beaver</string>
+    <string name="animal2d">A long and formal description of a Panda</string>
+    <string name="animal3d">A long and formal description of a Polar Bear</string>
+
+    <array name="pictures">
+        <item>@drawable/animal1</item>
+        <item>@drawable/animal2</item>
+        <item>@drawable/animal3</item>
+    </array>
+
+    <string-array name="animalnames">
+        <item>@string/animal1n</item>
+        <item>@string/animal2n</item>
+        <item>@string/animal3n</item>
+    </string-array>
+    <string-array name="animaldescriptions">
+        <item>@string/animal1d</item>
+        <item>@string/animal2d</item>
+        <item>@string/animal3d</item>
+    </string-array>
+</resources>
