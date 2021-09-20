@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 
 class MainActivity : AppCompatActivity(), Fragment1.OnFragmentInteractionListener
 {
@@ -17,9 +16,7 @@ class MainActivity : AppCompatActivity(), Fragment1.OnFragmentInteractionListene
     }
 
     override fun onFragmentInteraction(pos: Int?) {
-        val fragment2 =
-            supportFragmentManager.findFragmentById(R.id.fragment2) as
-                    Fragment2
+        val fragment2 = supportFragmentManager.findFragmentById(R.id.fragment2) as Fragment2
         fragment2.setText(pos)
 
     }
@@ -31,11 +28,20 @@ class MainActivity : AppCompatActivity(), Fragment1.OnFragmentInteractionListene
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_back -> Log.e("tag","back")
-            R.id.menu_next -> Log.e("tag","next")
+            R.id.menu_back -> onClickBackButton()
+            R.id.menu_next -> onClickNextButton()
             R.id.menu_exit -> finish()
             else -> return false
         }
         return true
+    }
+
+    private fun onClickBackButton(){
+        val fragment2 = supportFragmentManager.findFragmentById(R.id.fragment2) as Fragment2
+        fragment2.onClickBack()
+    }
+    private fun onClickNextButton(){
+        val fragment2 = supportFragmentManager.findFragmentById(R.id.fragment2) as Fragment2
+        fragment2.onClickNext()
     }
 }
