@@ -1,0 +1,29 @@
+{
+  "movies": [
+    {
+      "title": "Inception",
+      "director": "Christopher Nolan",
+      "actor": "Leonardo DiCaprio, Tom Hardy"
+    },
+    {
+      "title": "James Bond: No Time to Die",
+      "director": "Cary Joji Fukunaga",
+      "actor": "Daniel Craig, Rami Malek"
+    },
+    {
+      "title": "Tenet",
+      "director": "Christopher Nolan",
+      "actor": "Robert Pattinson, Kenneth Branagh"
+    },
+    {
+      "title": "Lone Survivor",
+      "director": "Peter Berg",
+      "actor": "Mark Wahlberg, Taylor Kitsch"
+    },
+    {
+      "title": "Cars 3",
+      "director": "Brian Lee",
+      "actor": "Owen Wilson, Christela Alonzo"
+    }
+  ]
+}

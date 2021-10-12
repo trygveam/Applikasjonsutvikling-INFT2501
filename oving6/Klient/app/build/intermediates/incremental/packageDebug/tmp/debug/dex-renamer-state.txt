@@ -1,0 +1,4 @@
+#Thu Oct 07 21:06:00 CEST 2021
+base.0=C\:\\Users\\tryam\\Documents\\repositories github\\Applikasjonsutvikling-INFT2501\\oving6\\Klient\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
