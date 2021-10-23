@@ -2,52 +2,46 @@ package inft2501.oving6.client
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
+import android.view.View
 import android.widget.TextView
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.Socket
-import java.net.URISyntaxException
 
 class MainActivity : AppCompatActivity() {
 
-     lateinit var button: Button
-     lateinit var client: Client
-     lateinit var textView : TextView
+    private val SERVER_IP: String = "10.0.2.2"
+    private val SERVER_PORT: Int = 12345
+
+    var server: Socket? = null
+        private set
+
+
+    var receivedMessages = mutableListOf<String>()
+    var sentMessages = mutableListOf<String>()
+
+
+    private lateinit var textView: TextView
+    private lateinit var editText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textView = findViewById<TextView>(R.id.textView)
-        button = findViewById<Button>(R.id.button)
-        val editText = findViewById<EditText>(R.id.editTextMessage)
-        client = Client(textView,button,editText)
-        client.start()
-
+        textView = findViewById(R.id.textView)
+        editText = findViewById(R.id.editTextMessage)
+        start()
     }
 
-    public fun program() {
+    fun start() {
         CoroutineScope(Dispatchers.IO).launch {
-            ui = " P: Kobler til tjener..."
+            println("Connecting to server..")
             try {
-                Socket("10.0.2.2", 12345).use { socket: Socket ->
-                    ui = "P: Koblet til tjener:\n$socket"
-                    delay(5000)
-                    readFromServer(socket)
-                    delay(5000)
-                    sendToServer(socket, "Heisann Tjener! Hyggelig å hilse på deg")
-                    button.setOnClickListener{
-                        Log.e("tag","diaplyed before sent to server")
-                        sendToServer(socket,"simple message")
-                    }
-
-                }
+                server = Socket(SERVER_IP, SERVER_PORT)
+                println("Connected to server: $server")
+                startListeningOnServer()
             } catch (e: IOException) {
                 e.printStackTrace()
                 ui = e.message
@@ -55,21 +49,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun readFromServer(socket: Socket) {
-        val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
-        val message = reader.readLine()
-        if (message != null) {
-            if(message.isNotBlank()){
-                ui = "M: $message"
+    private fun startListeningOnServer() {
+        CoroutineScope(Dispatchers.IO).launch {
+            server?.let {
+                while (true) {
+                    val reader = BufferedReader(InputStreamReader(it.getInputStream()))
+                    val message = reader.readLine()
+                    if (message !== null) {
+                        ui = "R: $message"
+                        receivedMessages.add(message)
+                    } else {
+                        it.close()
+                        break
+                    }
+                }
             }
         }
     }
 
-    private fun sendToServer(socket: Socket, message: String) {
-        val writer = PrintWriter(socket.getOutputStream(), true)
-        writer.println(message)
-        ui = "S: $message"
-    }
 
     private var ui: String? = ""
         set(str) {
@@ -79,4 +76,23 @@ class MainActivity : AppCompatActivity() {
             }
             field = str
         }
+
+    fun onClickSend(view: View) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var message = editText.text.toString()
+            sendToServer(message)
+        }
+    }
+
+
+    private suspend fun sendToServer(message: String) = coroutineScope {
+        CoroutineScope(Dispatchers.IO).launch {
+            server?.let {
+                val writer = PrintWriter(it.getOutputStream(), true)
+                writer.println(message)
+                sentMessages.add(message)
+                ui = "You: $message"
+            }
+        }
+    }
 }
