@@ -1,53 +1,63 @@
 package inft2501.oving6.oving7
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import inft2501.oving6.oving7.databinding.ActivitySettingsBinding
+import inft2501.oving6.oving7.managers.MyPreferenceManager
 
+class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener,
+                         Preference.SummaryProvider<ListPreference> {
 
-
-
-class SettingsActivity : AppCompatActivity(){
+	private lateinit var ui: ActivitySettingsBinding
+	private lateinit var myPreferenceManager: MyPreferenceManager
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.settings_layout)
-		val c = intent.getIntExtra("color",0)
-		changeColorOnScreen(c)
-	}
 
-	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.settings2, menu)
-		val rainbow: IntArray = resources.getIntArray(R.array.rainbow)
-		val names  = resources.getStringArray(R.array.color_names)
-		Log.e("tag",names[0])
-		for (i in rainbow.indices){
-			println(i)
-			menu.add(0,i-1,0,names[i])
+		myPreferenceManager = MyPreferenceManager(this)
+		myPreferenceManager.registerListener(this)
+
+		ui = ActivitySettingsBinding.inflate(layoutInflater)
+		setContentView(ui.root)
+
+		supportFragmentManager
+				.beginTransaction()
+				.replace(R.id.settings_container, SettingsFragment())
+				.commit()
+
+		ui.button.setOnClickListener {
+			setResult(RESULT_OK, Intent().putExtra("colors",myPreferenceManager.getString("colors","kuk")))
+			println("done with settings" + myPreferenceManager.getString("colors","kuk"))
+			finish()
 		}
-		return super.onCreateOptionsMenu(menu)
 	}
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		changeColorOnScreen(item.itemId+1)
-		setResult(RESULT_OK, Intent().putExtra("color",item.itemId))
-		return super.onOptionsItemSelected(item)
+	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+		if (key == getString(R.string.colors)){ myPreferenceManager.updateNightMode()
+		}
 	}
 
-	private fun changeColorOnScreen(itemId: Int) {
-		val rainbow: IntArray = resources.getIntArray(R.array.rainbow)
-		var lay = findViewById<ConstraintLayout>(R.id.constrainLayoutSetting)
-		lay.setBackgroundColor(rainbow[itemId])
+	override fun provideSummary(preference: ListPreference?): CharSequence {
+		return when (preference?.key) {
+			getString(R.string.colors) -> preference.entry
+			else                           -> "Unknown Preference"
+		}
 	}
 
-	fun clickBack(view: View?){
-		finish()
+	override fun onDestroy() {
+		super.onDestroy()
+		myPreferenceManager.unregisterListener(this)
 	}
 
+	class SettingsFragment : PreferenceFragmentCompat() {
 
+		override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+			setPreferencesFromResource(R.xml.preference_screen, rootKey)
+		}
+	}
 }

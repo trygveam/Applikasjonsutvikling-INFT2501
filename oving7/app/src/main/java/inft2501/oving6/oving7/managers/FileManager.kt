@@ -56,7 +56,7 @@ class FileManager(private val activity: AppCompatActivity) {
 	fun writeToTxt(movies:MutableList<Movie>){
 		try {
 			val fileOutputStream: FileOutputStream = activity.openFileOutput("mytext2file.txt", Context.MODE_PRIVATE)
-			val outputWriter = OutputStreamWriter(file OutputStream)
+			val outputWriter = OutputStreamWriter(fileOutputStream)
 			outputWriter.write("editText.text.toString()")
 			outputWriter.write("editText.text.toString()")
 			outputWriter.write("editText.text.toString()")
