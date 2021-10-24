@@ -1,7 +1,9 @@
 package inft2501.oving6.oving7.managers
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import inft2501.oving6.oving7.R
+import inft2501.oving6.oving7.data.Movie
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -51,20 +53,24 @@ class FileManager(private val activity: AppCompatActivity) {
 	}
 
 
-
-
-
-	fun write(str: String) {
-		PrintWriter(file).use { writer ->
-			writer.println(str)
+	fun writeToTxt(movies:MutableList<Movie>){
+		try {
+			val fileOutputStream: FileOutputStream = activity.openFileOutput("mytext2file.txt", Context.MODE_PRIVATE)
+			val outputWriter = OutputStreamWriter(file OutputStream)
+			outputWriter.write("editText.text.toString()")
+			outputWriter.write("editText.text.toString()")
+			outputWriter.write("editText.text.toString()")
+			outputWriter.write("editText.text.toString()")
+			outputWriter.close()
+			//display file saved message
+		}
+		catch (e: Exception) {
+			e.printStackTrace()
 		}
 	}
 
-	fun readLine(): String? {
-		BufferedReader(FileReader(file)).use { reader ->
-			return reader.readLine()
-		}
-	}
+
+
 
 	/**
 	 * Open file: *res/raw/id.txt*

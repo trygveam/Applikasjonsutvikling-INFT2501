@@ -2,18 +2,21 @@ package inft2501.oving6.oving7.service
 
 import android.content.Context
 import inft2501.oving6.oving7.managers.DatabaseManager
-import inft2501.oving6.oving7.managers.FileManager
+import org.json.JSONArray
 
 class Database(context: Context) : DatabaseManager(context) {
 
-	init {
-		try {
-			this.clear()
-			this.insert("Inception", "Christopher Nolan","Leanordo DiCaprio","second")
-			this.insert("Tenet", "Christopher Nolan","Robert Pattinson","second3")
-			this.insert("James Bond: No Time to Die","Cary Joji Fukunaga","Daniel Craig","Rami Malek")
-		} catch (e: Exception) {
-			e.printStackTrace()
+	public fun insertFromJson(movies: JSONArray?){
+		if (movies != null) {
+			for (i in 0 until movies.length()) {
+				val userDetail = movies.getJSONObject(i)
+				this.insert(
+					userDetail.getString("title"),
+					userDetail.getString("director"),
+					userDetail.getString("actor").split(",").toTypedArray().get(0),
+					userDetail.getString("actor").split(",").toTypedArray().get(1).trimStart()
+				)
+			}
 		}
 	}
 
