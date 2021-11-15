@@ -1,8 +1,10 @@
 import React from "react";
-import { ImageBackground, Text, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
 import AppButton from "../components/AppButton";
 
+import style from "../config/styles";
 import colors from "../config/colors";
+import AppText from "../components/AppText";
 
 function WelcomeScreen(props) {
   return (
@@ -11,7 +13,15 @@ function WelcomeScreen(props) {
       source={require("../assets/wsimg.jpg")}
       blurRadius={4}
     >
-      <Text style={styles.information}>Information</Text>
+      <AppText style={styles.header}>Welcome</AppText>
+      <AppText style={styles.information}>
+        This is a long text explaining the rules and shit aboyt this game, This
+        is a long text explaining the rules and shit aboyt this game , This is a
+        long text explaining the rules and shit aboyt this game, This is a long
+        text explaining the rules and shit aboyt this game , This is a long text
+        explaining the rules and shit aboyt this game, This is a long text
+        explaining the rules and shit aboyt this game
+      </AppText>
       <AppButton style={styles.startButton} title="Start Game" />
     </ImageBackground>
   );
@@ -20,20 +30,22 @@ function WelcomeScreen(props) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
     height: "100%",
     width: "100%",
     alignItems: "center",
   },
-  information: {
+  header: {
     position: "absolute",
     top: 100,
     color: colors.white,
-    fontSize: 17,
-    fontWeight: "300",
+  },
+  information: {
+    color: colors.white,
   },
   startButton: {
-    marginBottom: 50,
+    position: "absolute",
+    bottom: 30,
   },
 });
 
