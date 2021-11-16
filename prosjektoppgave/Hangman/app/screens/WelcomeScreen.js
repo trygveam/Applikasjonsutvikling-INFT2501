@@ -5,29 +5,34 @@ import AppButton from "../components/AppButton";
 import style from "../config/styles";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
-
+import Screen from "../components/Screen";
 function WelcomeScreen(props) {
   return (
-    <ImageBackground
-      style={styles.background}
-      source={require("../assets/wsimg.jpg")}
-      blurRadius={4}
-    >
-      <AppText style={styles.header}>Welcome</AppText>
-      <AppText style={styles.information}>
-        This is a long text explaining the rules and shit aboyt this game, This
-        is a long text explaining the rules and shit aboyt this game , This is a
-        long text explaining the rules and shit aboyt this game, This is a long
-        text explaining the rules and shit aboyt this game , This is a long text
-        explaining the rules and shit aboyt this game, This is a long text
-        explaining the rules and shit aboyt this game
-      </AppText>
-      <AppButton style={styles.startButton} title="Start Game" />
-    </ImageBackground>
+    <Screen style={styles.container}>
+      <ImageBackground
+        style={styles.background}
+        source={require("../assets/wsimg.jpg")}
+        blurRadius={4}
+      >
+        <AppText style={styles.header}>Welcome</AppText>
+        <AppText style={styles.information}>
+          This is a long text explaining the rules and shit aboyt this game,
+          This is a long text explaining the rules and shit aboyt this game ,
+          This is a long text explaining the rules and shit aboyt this game,
+          This is a long text explaining the rules and shit aboyt this game ,
+          This is a long text explaining the rules and shit aboyt this game,
+          This is a long text explaining the rules and shit aboyt this game
+        </AppText>
+        <AppButton style={styles.startButton} title="Start Game" />
+      </ImageBackground>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   background: {
     flex: 1,
     justifyContent: "center",
